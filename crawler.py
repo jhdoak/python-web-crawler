@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+from urllib.parse import urljoin
 import requests
 
 to_visit = ["http://espn.com", "http://cnn.com"]
@@ -10,4 +11,4 @@ while to_visit:
     if res.status_code == 200:
         soup = BeautifulSoup(res.text, 'lxml')
         for a in soup.find_all('a', href=True):
-            to_visit.append(a['href'])
+            to_visit.append(urljoin(next_to_visit, a['href']))
