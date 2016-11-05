@@ -1,12 +1,11 @@
 import bs4.BeautifulSoup
 import requests
 
-to_visit = ["espn.com", "cnn.com"]
+to_visit = ["http://espn.com", "http://cnn.com"]
 
 while to_visit:
-    res = requests.get('http://' + to_visit.pop(0))
+    res = requests.get(to_visit.pop(0))
     if res.status_code == 200:
-        result = res.text
-        soup = BeautifulSoup(result, 'lxml')
+        soup = BeautifulSoup(res.text, 'lxml')
         for a in soup.find_all('a', href=True):
             to_visit.append(a['href'])
